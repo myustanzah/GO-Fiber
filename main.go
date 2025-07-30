@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/myustanzah/GO-Fiber.git/database"
+	"github.com/myustanzah/GO-Fiber.git/middleware"
 	"github.com/myustanzah/GO-Fiber.git/routes"
 )
 
@@ -36,13 +37,15 @@ func main() {
 		fmt.Println("is the child process")
 	}
 
-	routes.SetupRoutes(app.Group("/dummy/v1"))                         // Setup routes with a versioned API group
+	routes.SetupRoutes(app.Group("/dummy/v1"))
+	routes.SetupAuthRoutes(app.Group("api/v1/auth"), db)
+	app.Use(middleware.JwtMiddleware)                                  // Setup routes with a versioned API group
 	routes.SetupUserRoutes(app.Group("/api/v1/users"), db)             // Setup user routes with a versioned API group
 	routes.SetupCategoryRoutes(app.Group("/api/v1/categories"), db)    // Setup category routes with a versioned API group
 	routes.SetupOrderRoutes(app.Group("/api/v1/orders"), db)           // Setup order routes
 	routes.SetupOrderItemsRoutes(app.Group("/api/v1/order-items"), db) // Setup order item routes
 	routes.SetupProductRoutes(app.Group("/api/v1/products"), db)       // Setup product routes
-	// routes.SetupAuthRoutes(app.Group("/api/v1/auth"), db) // Setup authentication routes
+
 	// routes.SetupAdminRoutes(app.Group("/api/v1/admin"), db) // Setup admin routes
 	// routes.SetupCartRoutes(app.Group("/api/v1/carts"), db) // Setup cart routes
 	// routes.SetupWishlistRoutes(app.Group("/api/v1/wishlist"), db) // Setup wishlist routes
