@@ -36,8 +36,21 @@ func main() {
 		fmt.Println("is the child process")
 	}
 
-	routes.SetupRoutes(app.Group("/dummy/v1"))             // Setup routes with a versioned API group
-	routes.SetupUserRoutes(app.Group("/api/v1/users"), db) // Setup user routes with a versioned API group
+	routes.SetupRoutes(app.Group("/dummy/v1"))                         // Setup routes with a versioned API group
+	routes.SetupUserRoutes(app.Group("/api/v1/users"), db)             // Setup user routes with a versioned API group
+	routes.SetupCategoryRoutes(app.Group("/api/v1/categories"), db)    // Setup category routes with a versioned API group
+	routes.SetupOrderRoutes(app.Group("/api/v1/orders"), db)           // Setup order routes
+	routes.SetupOrderItemsRoutes(app.Group("/api/v1/order-items"), db) // Setup order item routes
+	routes.SetupProductRoutes(app.Group("/api/v1/products"), db)       // Setup product routes
+	// routes.SetupAuthRoutes(app.Group("/api/v1/auth"), db) // Setup authentication routes
+	// routes.SetupAdminRoutes(app.Group("/api/v1/admin"), db) // Setup admin routes
+	// routes.SetupCartRoutes(app.Group("/api/v1/carts"), db) // Setup cart routes
+	// routes.SetupWishlistRoutes(app.Group("/api/v1/wishlist"), db) // Setup wishlist routes
+	// routes.SetupPaymentRoutes(app.Group("/api/v1/payments"), db) // Setup payment routes
+	// routes.SetupShippingRoutes(app.Group("/api/v1/shipping"), db) // Setup shipping routes
+	// routes.SetupReviewRoutes(app.Group("/api/v1/reviews"), db) // Setup review routes
+	// routes.SetupNotificationRoutes(app.Group("/api/v1/notifications"), db) // Setup notification routes
+	// routes.SetupSearchRoutes(app.Group("/api/v1/search"), db) // Setup search routes
 
 	fmt.Println("Server is running on http://localhost:3040")
 	app.Listen(":3040")

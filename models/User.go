@@ -1,16 +1,21 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
-	ID        int       `gorm:"primaryKey;autoIncrement" json:"id"`
-	Name      string    `gorm:"type:varchar(100);not null" json:"name"`
-	Email     string    `gorm:"type:varchar(100);unique;not null" json:"email"`
-	Address   string    `gorm:"type:varchar(255);not null" json:"address"`
-	Password  string    `gorm:"type:varchar(255);NULL" json:"password"`
-	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
-	DeletedAt time.Time `gorm:"autoDeleteTime" json:"deleted_at"`
+	gorm.Model           // This will automatically include ID, CreatedAt, UpdatedAt, DeletedAt fields
+	Name       string    `gorm:"type:varchar(100);not null" json:"name"`
+	Email      string    `gorm:"type:varchar(100);unique;not null" json:"email"`
+	Address    string    `gorm:"type:varchar(255);not null" json:"address"`
+	Password   string    `gorm:"type:varchar(255);NULL" json:"password"`
+	CreatedAt  time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt  time.Time `gorm:"autoUpdateTime" json:"updated_at"`
+	DeletedAt  time.Time `gorm:"autoDeleteTime" json:"deleted_at"`
+	Orders     []Order   `gorm:"foreignKey:CustomerID" json:"orders"` // One-to-many relationship with Order
 }
 
 // func (User) TableName() string {
